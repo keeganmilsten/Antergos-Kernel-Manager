@@ -1,5 +1,11 @@
 # Antergos-Kernel-Manager
 
+# Dependencies
+
+* yad
+* downgrade
+* xterm
+
 # Install
 
 1. Move all the files (except antergos-kernel-manager) to /usr/bin and make them executable using chmod +x
