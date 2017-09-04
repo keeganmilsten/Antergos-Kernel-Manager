@@ -5,6 +5,7 @@
 * yad
 * downgrade
 * xterm
+* aki
 
 # Install
 
