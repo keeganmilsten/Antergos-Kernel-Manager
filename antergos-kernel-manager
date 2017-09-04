@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Antergos Kernel Manager
+Comment=Kernel Manager
+Icon=antergos-preferences-system
+Exec=kernels3.sh
+NoDisplay=false
+Categories=Utility;
+Keywords=antergos, kernel, kernels, manager
+StartupNotify=false
+Terminal=false
