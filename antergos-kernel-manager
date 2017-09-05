@@ -62,6 +62,7 @@ downgrade() {
             3) downgrade_linux_lts ;;
             4) downgrade_linux_zen ;;
             5) downgrade_linux_hardened ;;
+}
             
 advanced() {
     installed=`aki -li`
