@@ -63,7 +63,9 @@ downgrade() {
             4) downgrade_linux_zen ;;
             5) downgrade_linux_hardened ;;
 }
-            
+
+esac
+ 
 advanced() {
     installed=`aki -li`
     while :; do
