@@ -62,6 +62,21 @@ downgrade() {
             3) downgrade_linux_lts ;;
             4) downgrade_linux_zen ;;
             5) downgrade_linux_hardened ;;
+            
+advanced() {
+    installed=`aki -li`
+    while :; do
+        yad --title "Kernels" --skip-taskbar --center --width=600 --text "The following kernels are not officially supported" \
+        --button="Install":2 \
+        --button="Remove":3 \
+        --button="Back":1   
+     ret=$?
+     
+     case $ret in
+        1) return ;;
+        2) install_advanced ;;
+        3) remove_advanced ;;
+        
         esac
     done
 }
@@ -94,6 +109,34 @@ downgrade_linux-hardened() {
         --button="Downgrade linux-hardened-headers":"xterm -e downgrade linux-hardened-headers"
 }
 
+install_advanced() {
+    installed=`aki -li`
+    yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
+        --button="Install linux ck":"xterm -e yaourt -S linux-ck linux-headers-ck --noconfirm" \
+        --button="Install linux lqx":"xterm -e yaourt -S linux-lqx linux-lqx-headers --noconfirm" \
+        --button="Install linux mptcp":"xterm -e yaourt -S linux-mptcp linux-mptcp-headers --noconfirm" \
+        --button="Install linux rt bfq":"xterm -e yaourt -S linux-rt-bfq linux-rt-bfq-headers --noconfirm" \
+        --button="Install linux rt lts":"xterm -e yaourt -S linux-rt-lts linux-rt-lts-headers --noconfirm" \
+        --button="Install linux vfio":"xterm -e yaourt -S linux-vfio linux-vfio-headers --noconfirm" \
+        --button="Install linux vfio lts":"xterm -e yaourt -S linux-vfio-lts linux-vfio-lts-headers --noconfirm" \
+        --button="Install linux kpatch":"xterm -e yaourt -S linux-kpatch linux-kpatch-headers --noconfirm" \
+        --button="Back":1
+}
+
+remove_advanced() {
+     installed=`aki -li`
+     yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
+        --button="Remove linux ck":"xterm -e yaourt -Rs linux-ck linux-headers-ck --noconfirm" \
+        --button="Remove linux lqx":"xterm -e yaourt -Rs linux-lqx linux-lqx-headers --noconfirm" \
+        --button="Remove linux mptcp":"xterm -e yaourt -Rs linux-mptcp linux-mptcp-headers --noconfirm" \
+        --button="Remove linux rt bfq":"xterm -e yaourt -Rs linux-rt-bfq linux-rt-bfq-headers --noconfirm" \
+        --button="Remove linux rt lts":"xterm -e yaourt -Rs linux-rt-lts linux-rt-lts-headers --noconfirm" \
+        --button="Remove linux vfio":"xterm -e yaourt -Rs linux-vfio linux-vfio-headers --noconfirm" \
+        --button="Remove linux vfio lts":"xterm -e yaourt -Rs linux-vfio-lts linux-vfio-lts-headers --noconfirm" \
+        --button="Remove linux kpatch":"xterm -e yaourt -Rs linux-kpatch linux-kpatch-headers --noconfirm" \
+        --button="Back":1
+}
+
 # Main
 
 if [ ! -f "/usr/bin/yad" ]; then
@@ -112,6 +155,7 @@ while :; do
         --button="Install":2 \
         --button="Remove":3 \
         --button="Downgrade":4 \
+        --button="Advanced":5
         --button="Close":1)
 
     ret=$?
@@ -121,5 +165,6 @@ while :; do
         2) install ;;
         3) remove ;;
         4) downgrade ;;
+        5) advanced ;;
     esac
 done
