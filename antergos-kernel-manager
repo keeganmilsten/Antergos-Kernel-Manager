@@ -62,24 +62,23 @@ downgrade() {
             3) downgrade_linux_lts ;;
             4) downgrade_linux_zen ;;
             5) downgrade_linux_hardened ;;
+        esac
+    done
 }
 
-esac
- 
 advanced() {
     installed=`aki -li`
     while :; do
         yad --title "Kernels" --skip-taskbar --center --width=600 --text "The following kernels are not officially supported" \
         --button="Install":2 \
         --button="Remove":3 \
-        --button="Back":1   
+        --button="Back":1
      ret=$?
-     
+
      case $ret in
         1) return ;;
         2) install_advanced ;;
         3) remove_advanced ;;
-        
         esac
     done
 }
@@ -143,12 +142,12 @@ remove_advanced() {
 # Main
 
 if [ ! -f "/usr/bin/yad" ]; then
-    echo "This script depends on YAD package. Please install it."
+    echo "This script depends on the 'yad' package. Please install it."
     exit 1
 fi
 
 if [ ! -f "/usr/bin/downgrade" ]; then
-    echo "This script depends on downgrade package. Please install it."
+    echo "This script depends on the 'downgrade' package. Please install it."
     exit 1
 fi
 
@@ -158,7 +157,7 @@ while :; do
         --button="Install":2 \
         --button="Remove":3 \
         --button="Downgrade":4 \
-        --button="Advanced":5
+        --button="Advanced":5 \
         --button="Close":1)
 
     ret=$?
