@@ -69,7 +69,7 @@ downgrade() {
 advanced() {
     installed=`aki -li`
     while :; do
-        yad --title "Kernels" --skip-taskbar --center --width=600 --buttons-layout=center --text "The following kernels are not officially supported" \
+        yad --title "Kernels" --skip-taskbar --center --buttons-layout=center --width=300 --buttons-layout=center --text "The following kernels are not officially supported" \
         --button="Install":2 \
         --button="Remove":3 \
         --button="Back":1
