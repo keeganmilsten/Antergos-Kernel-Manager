@@ -1,12 +1,125 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Antergos Kernel Manager
-Comment=Kernel Manager
-Icon=/usr/share/icons/default/antergos-preferences-system.svg
-Exec=kernels3.sh
-NoDisplay=false
-Categories=Utility;
-Keywords=antergos, kernel, kernels, manager
-StartupNotify=false
-Terminal=false
+#!/bin/bash
+# -*- coding: utf-8 -*-
+#
+#  antergos-kernel-manager
+#  Copyright © 2017 Keegan
+#
+#  antergos-kernel-manager is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  antergos-kernel-manager is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  The following additional terms are in effect as per Section 7 of the license:
+#
+#  The preservation of all legal notices and author attributions in
+#  the material or in the Appropriate Legal Notices displayed
+#  by works containing it is required.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with antergos-kernel-manager; If not, see <http://www.gnu.org/licenses/>.
+
+#set -euo pipefail
+
+install() {
+    installed=`aki -li`
+    yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
+        --button="Install linux":"xterm -e sudo pacman -S linux linux-headers --noconfirm" \
+        --button="Install linux lts":"xterm -e sudo pacman -S linux-lts linux-lts-headers --noconfirm" \
+        --button="Install linux zen":"xterm -e sudo pacman -S linux-zen linux-zen-headers --noconfirm" \
+        --button="Install linux hardened":"xterm -e sudo pacman -S linux-hardened linux-hardened-headers --noconfirm" \
+        --button="Back":1
+}
+
+remove() {
+    installed=`aki -li`
+    yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
+        --button="Remove linux":"xterm -e sudo pacman -Rs linux linux-headers --noconfirm" \
+        --button="Remove linux lts":"xterm -e sudo pacman -Rs linux-lts linux-lts-headers --noconfirm" \
+        --button="Remove linux zen":"xterm -e sudo pacman -Rs linux-zen linux-zen-headers --noconfirm" \
+        --button="Remove linux hardened":"xterm -e sudo pacman -Rs linux-hardened linux-hardened-headers --noconfirm" \
+        --button="Back":1
+}
+
+downgrade() {
+    installed=`aki -li`
+    while :; do
+        yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
+            --button="Downgrade linux kernel":2 \
+            --button="Downgrade lts kernel":3 \
+            --button="Downgrade linux zen":4 \
+            --button="Downgrade linux hardened":5 \
+            --button="Back":1
+        ret=$?
+
+        case $ret in
+            1) return ;;
+            2) downgrade_linux ;;
+            3) downgrade_linux_lts ;;
+            4) downgrade_linux_zen ;;
+            5) downgrade_linux_hardened ;;
+        esac
+    done
+}
+
+downgrade_linux() {
+    yad --title "Kernels" --buttons-layout=center --skip-taskbar --center \
+        --text="To properly downgrade a linux kernel, one must downgrade the kernel itself and its headers to the same version" \
+        --button="Downgrade linux":"xterm -e downgrade linux" \
+        --button="Downgrade linux-headers":"xterm -e downgrade linux-headers"
+}
+
+downgrade_linux_lts() {
+    yad --title "Kernels" --buttons-layout=center --skip-taskbar --center \
+        --text="To properly downgrade a linux kernel, one must downgrade the kernel itself and its headers to the same version" \
+        --button="Downgrade linux-lts":"xterm -e downgrade linux-lts" \
+        --button="Downgrade linux-lts-headers":"xterm -e downgrade linux-lts-headers"
+}
+
+downgrade_linux_zen() {
+    yad --title "Kernels" --buttons-layout=center --skip-taskbar --center \
+        --text="To properly downgrade a linux kernel, one must downgrade the kernel itself and its headers to the same version" \
+        --button="Downgrade linux-zen":"xterm -e downgrade linux-zen" \
+        --button="Downgrade linux-zen-headers":"xterm -e downgrade linux-zen-headers"
+}
+
+downgrade_linux-hardened() {
+    yad --title "Kernels" --buttons-layout=center --skip-taskbar --center \
+        --text="To properly downgrade a linux kernel, one must downgrade the kernel itself and its headers to the same version" \
+        --button="Downgrade linux-hardened":"xterm -e downgrade linux-hardened" \
+        --button="Downgrade linux-hardened-headers":"xterm -e downgrade linux-hardened-headers"
+}
+
+# Main
+
+if [ ! -f "/usr/bin/yad" ]; then
+    echo "This script depends on YAD package. Please install it."
+    exit 1
+fi
+
+if [ ! -f "/usr/bin/downgrade" ]; then
+    echo "This script depends on downgrade package. Please install it."
+    exit 1
+fi
+
+while :; do
+    action=$(yad --title "Kernels" --height=100 --width=300 --center --buttons-layout=center \
+        --text="An Easy Kernel Manager For Everyone" --text-align=center \
+        --button="Install":2 \
+        --button="Remove":3 \
+        --button="Downgrade":4 \
+        --button="Close":1)
+
+    ret=$?
+
+    case $ret in
+        1) exit 0 ;;
+        2) install ;;
+        3) remove ;;
+        4) downgrade ;;
+    esac
+done
