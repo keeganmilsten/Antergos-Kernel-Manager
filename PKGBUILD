@@ -1,19 +1,21 @@
-Maintainer: Keegan Milsten <willnhalt@gmail.com>
-Contributor: Yigit Dallilar <yigit.dallilar@gmail.com>
+#Maintainer: Keegan Milsten <willnhalt@gmail.com>
+#Contributor: Yigit Dallilar <yigit.dallilar@gmail.com>
+# Contributor: Antergos devs <devs@antergos.com>
+
 _pkgbase=antergos-kernel-manager
 pkgbase=antergos-kernel-manager-git
 pkgname=('antergos-kernel-manager-git')
-pkgver="r20.9fb93b7"
+pkgver="1.0"
 pkgrel=1
 pkgdesc="An easy kernel manager for everyone"
-arch=('i686' 'x86_64')
+arch=('any')
 url='http://antergos.com'
 license=('GPL3')
 depends=('yad' 'downgrade' 'xterm' 'aki')
 makedepends=('git')
 provides=('antergos-kernel-manager')
-source=("git://github.com/keeganmilsten/antergos-kernel-manager.git")
-md5sums=('SKIP')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/keeganmilsten/${_pkgname}/archive/v${pkgver}.tar.gz")
+md5sums=('0d4954e95397f08cdeb45d3c04a28c98')
 _gitname=antergos-kernel-manager
 
 pkgver() {
