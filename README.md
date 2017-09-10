@@ -12,11 +12,7 @@ Shell script that shows dialogs (YAD). Install/remove/downgrade your kernels.
 # Install
 
 1.  `git clone https://github.com/keeganmilsten/Antergos-Kernel-Manager`
-2. `cd Antergos-Kernel-Manager`
-3. `chmod +x antergos-kernel-manager`
-4. `su`
-5. `cp /home/$USER/Antergos-Kernel-Manager/antergos-kernel-manager /usr/bin`
-6. `cp /home/$USER/Antergos-Kernel-Manager/antergos-kernel-manager.desktop /home/$USER/.local/share/applications`
-7. `cp /home/$USER/Antergos-Kernel-Manager/antergos-preferences-system.svg /usr/share/icons/default`
+2. `cd Antergos-Kernel-Manager/install/`
+3. `sudo pacman -U antergos-kernel-manager-git-r32.f6978bc-1-x86_64.pkg.tar`
 
 ### Enjoy!
