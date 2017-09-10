@@ -1,3 +1,5 @@
+Maintainer: Keegan Milsten <willnhalt@gmail.com>
+Contributor: Yigit Dallilar <yigit.dallilar@gmail.com>
 _pkgbase=antergos-kernel-manager
 pkgbase=antergos-kernel-manager-git
 pkgname=('antergos-kernel-manager-git')
