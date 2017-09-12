@@ -26,7 +26,7 @@
 #set -euo pipefail
 
 install() {
-    installed=`aki -li`
+    installed=`aki -n -li`
     yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
         --button="Install linux":"xterm -e sudo pacman -S linux linux-headers --noconfirm" \
         --button="Install linux lts":"xterm -e sudo pacman -S linux-lts linux-lts-headers --noconfirm" \
@@ -36,7 +36,7 @@ install() {
 }
 
 remove() {
-    installed=`aki -li`
+    installed=`aki -n -li`
     yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
         --button="Remove linux":"xterm -e sudo pacman -Rs linux linux-headers --noconfirm" \
         --button="Remove linux lts":"xterm -e sudo pacman -Rs linux-lts linux-lts-headers --noconfirm" \
@@ -46,7 +46,7 @@ remove() {
 }
 
 downgrade() {
-    installed=`aki -li`
+    installed=`aki -n -li`
     while :; do
         yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
             --button="Downgrade linux kernel":2 \
@@ -67,7 +67,7 @@ downgrade() {
 }
 
 advanced() {
-    installed=`aki -li`
+    installed=`aki -n -li`
     while :; do
         yad --title "Kernels" --skip-taskbar --center --buttons-layout=center --width=300 --buttons-layout=center --text "The following kernels are not officially supported" \
         --button="Install":2 \
@@ -126,7 +126,7 @@ install_advanced() {
 }
 
 remove_advanced() {
-     installed=`aki -li`
+     installed=`aki -n -li`
      yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
         --button="Remove linux ck":"xterm -e yaourt -Rs linux-ck linux-headers-ck --noconfirm" \
         --button="Remove linux lqx":"xterm -e yaourt -Rs linux-lqx linux-lqx-headers --noconfirm" \
