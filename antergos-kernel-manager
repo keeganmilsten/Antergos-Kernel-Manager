@@ -161,8 +161,8 @@ while :; do
         --button="Install":2 \
         --button="Remove":3 \
         --button="Downgrade":4 \
-	--button="Update Grub":6 \
         --button="Advanced":5 \
+	--button="Update Grub":6 \
         --button="Close":1)
 
     ret=$?
