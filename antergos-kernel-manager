@@ -112,7 +112,7 @@ downgrade_linux_hardened() {
 }
 
 install_advanced() {
-    installed=`aki -li`
+    installed=`aki -n -li`
     yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
         --button="Install linux ck":"xterm -e yaourt -S linux-ck linux-headers-ck --noconfirm" \
         --button="Install linux lqx":"xterm -e yaourt -S linux-lqx linux-lqx-headers --noconfirm" \
