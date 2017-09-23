@@ -112,7 +112,7 @@ downgrade_linux_hardened() {
 }
 
 install_advanced() {
-    installed=`aki -n -li`
+    installed=`aki -li`
     yad --title "Kernels" --skip-taskbar --center --width=600 --text "$installed" \
         --button="Install linux ck":"xterm -e yaourt -S linux-ck linux-headers-ck --noconfirm" \
         --button="Install linux lqx":"xterm -e yaourt -S linux-lqx linux-lqx-headers --noconfirm" \
@@ -139,6 +139,10 @@ remove_advanced() {
         --button="Back":1
 }
 
+update() {
+xterm -e sudo grub-mkconfig -o /boot/grub/grub.cfg
+}
+
 # Main
 
 if [ ! -f "/usr/bin/yad" ]; then
@@ -157,6 +161,7 @@ while :; do
         --button="Install":2 \
         --button="Remove":3 \
         --button="Downgrade":4 \
+	--button="Update Grub":6 \
         --button="Advanced":5 \
         --button="Close":1)
 
@@ -168,5 +173,6 @@ while :; do
         3) remove ;;
         4) downgrade ;;
         5) advanced ;;
+	6) update ;;
     esac
 done
